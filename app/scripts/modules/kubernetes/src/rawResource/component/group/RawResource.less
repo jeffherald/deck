@@ -21,3 +21,27 @@
 .raw-resource-details-column-label {
   margin-right: 1em;
 }
+
+.clickable-row {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-alto);
+  margin: 5px 15px 3px;
+  position: relative;
+  z-index: 1;
+
+  &.active {
+    border-color: var(--color-accent-g1);
+    background-color: var(--color-accent-g3);
+  }
+
+  &:hover {
+    border-color: var(--color-accent-g1);
+    box-shadow: 0 0 4px 2px var(--color-accent-g1);
+    z-index: 2;
+  }
+
+  &.managed {
+    margin: 5px;
+    border-style: dashed;
+  }
+}
