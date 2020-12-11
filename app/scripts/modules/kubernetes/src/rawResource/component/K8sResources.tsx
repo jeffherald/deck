@@ -1,7 +1,7 @@
-import { Application, ApplicationDataSource } from 'core/application';
+import { Application, ApplicationDataSource } from '@spinnaker/core';
 import React from 'react';
 import { FiltersPubSub } from '../controller/FiltersPubSub';
-import { K8S_DATA_SOURCE_KEY } from '../k8s.dataSource';
+import { KUBERNETS_RAW_RESOURCE_DATA_SOURCE_KEY } from '../rawResource.dataSource';
 import { RawResource } from './group/RawResource';
 import { RawResourceGroups } from './group/RawResourceGroups';
 import { IK8sResourcesFiltersState } from './K8sResourcesFilters';
@@ -22,7 +22,7 @@ export class K8sResources extends React.Component<IK8sResourcesProps, IK8sResour
 
   constructor(props: IK8sResourcesProps) {
     super(props);
-    this.dataSource = this.props.app.getDataSource(K8S_DATA_SOURCE_KEY);
+    this.dataSource = this.props.app.getDataSource(KUBERNETS_RAW_RESOURCE_DATA_SOURCE_KEY);
     this.state = {
       groupBy: 'none',
       filters: null,
@@ -64,10 +64,18 @@ export class K8sResources extends React.Component<IK8sResourcesProps, IK8sResour
               value={this.state.groupBy}
               onChange={this.onGroupByChange.bind(this)}
             >
-              <option value="none">None</option>
-              <option value="kind">Kind</option>
-              <option value="account">Account</option>
-              <option value="namespace">Namespace</option>
+              <option key="none" value="none">
+                None
+              </option>
+              <option key="kind" value="kind">
+                Kind
+              </option>
+              <option key="account" value="account">
+                Account
+              </option>
+              <option key="namespace" value="namespace">
+                Namespace
+              </option>
             </select>
           </div>
         </form>

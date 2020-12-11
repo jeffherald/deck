@@ -38,6 +38,8 @@ import { KUBERNETES_DISABLE_MANIFEST_STAGE } from './pipelines/stages/traffic/di
 import { KubernetesSecurityGroupReader } from './securityGroup/securityGroup.reader';
 import { KUBERNETES_ROLLING_RESTART } from './manifest/rollout/RollingRestart';
 
+import { KUBERNETS_RAW_RESOURCE_MODULE } from './rawResource';
+
 import kubernetesLogo from './logo/kubernetes.logo.svg';
 
 import './validation/applicationName.validator';
@@ -91,6 +93,7 @@ module(KUBERNETES_MODULE, [
   KUBERNETES_DISABLE_MANIFEST_STAGE,
   STAGE_ARTIFACT_SELECTOR_COMPONENT_REACT,
   KUBERNETES_ROLLING_RESTART,
+  KUBERNETS_RAW_RESOURCE_MODULE,
 ]).config(() => {
   CloudProviderRegistry.registerProvider('kubernetes', {
     name: 'Kubernetes',

@@ -1,9 +1,7 @@
-import { Application, ApplicationDataSource } from 'core/application';
-import { FilterSection } from 'core/cluster/filter/FilterSection';
-import { FilterCheckbox } from 'core/filterModel/FilterCheckBox';
+import { Application, ApplicationDataSource, FilterSection, FilterCheckbox } from '@spinnaker/core';
 import React from 'react';
 import { FiltersPubSub } from '../controller/FiltersPubSub';
-import { K8S_DATA_SOURCE_KEY } from '../k8s.dataSource';
+import { KUBERNETS_RAW_RESOURCE_DATA_SOURCE_KEY } from '../rawResource.dataSource';
 
 export interface IK8sResourcesFiltersProps {
   app: Application;
@@ -21,7 +19,7 @@ export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersPro
 
   constructor(props: IK8sResourcesFiltersProps) {
     super(props);
-    this.dataSource = this.props.app.getDataSource(K8S_DATA_SOURCE_KEY);
+    this.dataSource = this.props.app.getDataSource(KUBERNETS_RAW_RESOURCE_DATA_SOURCE_KEY);
 
     this.state = {
       accounts: {},
