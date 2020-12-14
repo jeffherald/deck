@@ -1,5 +1,6 @@
 import React from 'react';
 import { UISref, UISrefActive } from '@uirouter/react';
+import { CloudProviderLogo } from '@spinnaker/core';
 import './RawResource.less';
 
 interface IRawResourceProps {
@@ -32,7 +33,8 @@ export class RawResource extends React.Component<IRawResourceProps, IRawResource
         <UISref to=".rawResourceDetails" params={params}>
           <div id={key} className="raw-resource-card clickable clickable-row">
             <h4 className="raw-resource-title">
-              {this.props.resource.kind}: <b>{this.props.resource.displayName}</b>
+              <CloudProviderLogo provider="kubernetes" height="20px" width="20px" />
+              {this.props.resource.kind} {this.props.resource.displayName}
             </h4>
             <div className="raw-resource-details" style={{ display: 'flex' }}>
               <div className="raw-resource-details-column" style={{ display: 'flex' }}>

@@ -112,14 +112,10 @@ export class RawResourceDetails extends React.Component<IRawResourceDetailsProps
     const taskMonitor = {
       application: app,
       title: 'Deleting ' + name,
-      onTaskComplete() {
-        // if (ReactInjector.$state.includes('**.serverGroup', { instanceId: loadBalancer.name })) {
-        //   ReactInjector.$state.go('^');
-        // }
-      },
     };
 
     const submitMethod = () => {
+      ReactGA.event({ category: 'RawResource', action: 'Delete clicked' });
       const command = {
         manifestName: this.state.name,
         location: this.state.region,
