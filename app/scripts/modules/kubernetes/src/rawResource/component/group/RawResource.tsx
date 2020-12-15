@@ -36,16 +36,16 @@ export class RawResource extends React.Component<IRawResourceProps, IRawResource
               <CloudProviderLogo provider="kubernetes" height="20px" width="20px" />
               {this.props.resource.kind} {this.props.resource.displayName}
             </h4>
-            <div className="raw-resource-details" style={{ display: 'flex' }}>
-              <div className="raw-resource-details-column" style={{ display: 'flex' }}>
+            <div className="raw-resource-details">
+              <div className="raw-resource-details-column">
                 <div className="raw-resource-details-column-label">account:</div>
                 <div>{this.props.resource.account}</div>
               </div>
-              <div className="raw-resource-details-column" style={{ display: 'flex' }}>
+              <div className="raw-resource-details-column">
                 <div className="raw-resource-details-column-label">namespace:</div>
                 <div>{this.props.resource.namespace}</div>
               </div>
-              <div className="raw-resource-details-column" style={{ display: 'flex' }}>
+              <div className="raw-resource-details-column">
                 <div className="raw-resource-details-column-label">apiVersion:</div>
                 <div>{this.props.resource.apiVersion}</div>
               </div>
