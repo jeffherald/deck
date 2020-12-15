@@ -12,6 +12,7 @@ export interface IK8sResourcesFiltersState {
   accounts: Record<string, boolean>;
   kinds: Record<string, boolean>;
   namespaces: Record<string, boolean>;
+  displayNamespaces: Record<string, boolean>;
 }
 
 export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersProps, IK8sResourcesFiltersState> {
@@ -26,16 +27,23 @@ export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersPro
       accounts: {},
       kinds: {},
       namespaces: {},
+      displayNamespaces: {},
     };
   }
 
   public async componentDidMount() {
     await this.dataSource.ready();
-
+    const ns = Object.assign({}, ...this.dataSource.data.map((resource) => ({ [resource.namespace]: false })));
+    const displayNs = { ...ns };
+    if ('' in displayNs) {
+      delete displayNs[''];
+      displayNs[RawResourceUtils.GLOBAL_LABEL] = false;
+    }
     this.setState({
       accounts: Object.assign({}, ...this.dataSource.data.map((resource) => ({ [resource.account]: false }))),
       kinds: Object.assign({}, ...this.dataSource.data.map((resource) => ({ [resource.kind]: false }))),
-      namespaces: Object.assign({}, ...this.dataSource.data.map((resource) => ({ [resource.namespace]: false }))),
+      namespaces: ns,
+      displayNamespaces: displayNs,
     });
   }
 
@@ -67,14 +75,14 @@ export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersPro
             ))}
         </FilterSection>
         <FilterSection heading={'Namespace'} expanded={true}>
-          {...Object.keys(this.state.namespaces)
+          {...Object.keys(this.state.displayNamespaces)
             .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
             .map((key) => (
               <FilterCheckbox
-                heading={RawResourceUtils.namespaceDisplayName(key)}
+                heading={key}
                 key={key}
-                sortFilterType={this.state.namespaces}
-                onChange={this.onCheckbox.bind(this)}
+                sortFilterType={this.state.displayNamespaces}
+                onChange={this.onNsCheckbox.bind(this)}
               ></FilterCheckbox>
             ))}
         </FilterSection>
@@ -82,8 +90,19 @@ export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersPro
     );
   }
 
+  private onNsCheckbox() {
+    for (const p in this.state.displayNamespaces) {
+      if (p == RawResourceUtils.GLOBAL_LABEL) {
+        this.state.namespaces[''] = this.state.displayNamespaces[p];
+      }
+      this.state.namespaces[p] = this.state.displayNamespaces[p];
+    }
+    this.setState(this.state);
+    this.filterPubSub.publish(this.state);
+  }
+
   private onCheckbox() {
-    this.setState({ ...this.state });
+    this.setState(this.state);
     this.filterPubSub.publish(this.state);
   }
 }
