@@ -2,6 +2,7 @@ import React from 'react';
 import { UISref, UISrefActive } from '@uirouter/react';
 import { CloudProviderLogo } from '@spinnaker/core';
 import './RawResource.less';
+import { RawResourceUtils } from '../RawResourceUtils';
 
 interface IRawResourceProps {
   resource: IApiKubernetesResource;
@@ -43,7 +44,7 @@ export class RawResource extends React.Component<IRawResourceProps, IRawResource
               </div>
               <div className="raw-resource-details-column">
                 <div className="raw-resource-details-column-label">namespace:</div>
-                <div>{this.props.resource.namespace}</div>
+                <div>{RawResourceUtils.namespaceDisplayName(this.props.resource.namespace)}</div>
               </div>
               <div className="raw-resource-details-column">
                 <div className="raw-resource-details-column-label">apiVersion:</div>

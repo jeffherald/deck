@@ -22,6 +22,7 @@ import { KubernetesManifestService } from '../../../manifest/manifest.service';
 import { ManifestEvents } from '../../../pipelines/stages/deployManifest/manifestStatus/ManifestEvents';
 import { ManifestLabels } from '../../../manifest/ManifestLabels';
 import { ManifestCondition } from '../../../manifest/status/ManifestCondition';
+import { RawResourceUtils } from '../RawResourceUtils';
 
 export interface IRawResourceDetailsProps {
   app: any;
@@ -205,7 +206,7 @@ export class RawResourceDetails extends React.Component<IRawResourceDetailsProps
                 <dt>Kind</dt>
                 <dd>{kind}</dd>
                 <dt>Namespace</dt>
-                <dd>{region}</dd>
+                <dd>{RawResourceUtils.namespaceDisplayName(region)}</dd>
               </dl>
             </CollapsibleSection>
             <CollapsibleSection key="status" heading="status" defaultExpanded={true}>

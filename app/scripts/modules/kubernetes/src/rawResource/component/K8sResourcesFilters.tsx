@@ -1,6 +1,7 @@
 import { Application, ApplicationDataSource, FilterSection, FilterCheckbox } from '@spinnaker/core';
 import React from 'react';
 import { FiltersPubSub } from '../controller/FiltersPubSub';
+import { RawResourceUtils } from './RawResourceUtils';
 import { KUBERNETS_RAW_RESOURCE_DATA_SOURCE_KEY } from '../rawResource.dataSource';
 
 export interface IK8sResourcesFiltersProps {
@@ -70,7 +71,7 @@ export class K8sResourcesFilters extends React.Component<IK8sResourcesFiltersPro
             .sort((a, b) => (a.toLowerCase() > b.toLowerCase() ? 1 : -1))
             .map((key) => (
               <FilterCheckbox
-                heading={key}
+                heading={RawResourceUtils.namespaceDisplayName(key)}
                 key={key}
                 sortFilterType={this.state.namespaces}
                 onChange={this.onCheckbox.bind(this)}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { RawResourceGroup } from './RawResouceGroup';
 import { RawResource } from './RawResource';
+import { RawResourceUtils } from '../RawResourceUtils';
 
 interface IRawResourceGroupsProps {
   resources: IApiKubernetesResource[];
@@ -24,13 +25,20 @@ export class RawResourceGroups extends React.Component<IRawResourceGroupsProps, 
     ) as Record<string, IApiKubernetesResource[]>;
   }
 
+  private groupTitle(title: string): string {
+    if (this.props.groupBy == 'namespace') {
+      return RawResourceUtils.namespaceDisplayName(title);
+    }
+    return title;
+  }
+
   public render() {
     const groups = this.buildGroupByModel(this.props.resources);
     return (
       <div className="raw-resource-groups">
         {...Object.entries(groups).map((entry) => {
           return entry[0] !== 'undefined' ? (
-            <RawResourceGroup title={entry[0]}>
+            <RawResourceGroup title={this.groupTitle(entry[0])}>
               {...entry[1].map((resource) => <RawResource resource={resource}></RawResource>)}
             </RawResourceGroup>
           ) : (
