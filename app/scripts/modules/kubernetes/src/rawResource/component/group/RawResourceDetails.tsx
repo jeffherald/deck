@@ -69,7 +69,7 @@ export class RawResourceDetails extends React.Component<IRawResourceDetailsProps
     });
     const params = {
       account: this.props.$stateParams.account,
-      location: this.props.$stateParams.region,
+      location: this.props.$stateParams.region == '' ? '_' : this.props.$stateParams.region,
       name: this.props.$stateParams.name,
     };
     this.unsubscribeManifest = KubernetesManifestService.subscribe(this.props.app, params, (manifest) => {
